@@ -1,0 +1,9 @@
+journal_entry_id,transaction_date,account_code,account_name,debit_amount,credit_amount,description,reference
+JE001,2023-12-31,4000,Revenue,0.00,1000.00,Revenue recognition for ORD001,INV001
+JE002,2023-12-31,1200,Accounts Receivable,1000.00,0.00,Invoice for ORD001,INV001
+JE003,2024-01-01,4000,Revenue,0.00,1000.00,Revenue recognition for ORD002,INV002
+JE004,2024-01-01,1200,Accounts Receivable,1000.00,0.00,Invoice for ORD002,INV002
+JE005,2024-01-02,4000,Revenue,0.00,2250.00,Revenue recognition for ORD003,INV003
+JE006,2024-01-02,1200,Accounts Receivable,2250.00,0.00,Invoice for ORD003,INV003
+JE007,2023-12-31,4000,Revenue,0.00,2400.00,Revenue recognition for ORD004 - CUTOFF VIOLATION,INV004
+JE008,2023-12-31,1200,Accounts Receivable,2400.00,0.00,Invoice for ORD004 - CUTOFF VIOLATION,INV004

@@ -1,0 +1,388 @@
+@prefix : <http://example.org/audit-cutoff#> .
+@prefix data: <http://example.org/audit-cutoff/data#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+: a owl:Ontology ;
+    rdfs:label "Revenue Cutoff Audit Ontology" ;
+    rdfs:comment "Ontology for modeling revenue cutoff audit concepts and relationships" .
+
+:accountCode a owl:DatatypeProperty ;
+    rdfs:label "account code" ;
+    rdfs:domain :Account ;
+    rdfs:range xsd:string .
+
+:accountName a owl:DatatypeProperty ;
+    rdfs:label "account name" ;
+    rdfs:domain :Account ;
+    rdfs:range xsd:string .
+
+:amount a owl:DatatypeProperty ;
+    rdfs:label "amount" ;
+    rdfs:range xsd:decimal .
+
+:creditAmount a owl:DatatypeProperty ;
+    rdfs:label "credit amount" ;
+    rdfs:domain :JournalEntry ;
+    rdfs:range xsd:decimal .
+
+:debitAmount a owl:DatatypeProperty ;
+    rdfs:label "debit amount" ;
+    rdfs:domain :JournalEntry ;
+    rdfs:range xsd:decimal .
+
+:deliveryDate a owl:DatatypeProperty ;
+    rdfs:label "delivery date" ;
+    rdfs:domain :Delivery ;
+    rdfs:range xsd:date .
+
+:deliveryStatus a owl:DatatypeProperty ;
+    rdfs:label "delivery status" ;
+    rdfs:domain :Delivery ;
+    rdfs:range xsd:string .
+
+:description a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    rdfs:range xsd:string .
+
+:forProduct a owl:ObjectProperty ;
+    rdfs:label "for product" ;
+    rdfs:comment "Links an order to the product ordered" ;
+    rdfs:domain :Order ;
+    rdfs:range :Product .
+
+:hasDelivery a owl:ObjectProperty ;
+    rdfs:label "has delivery" ;
+    rdfs:comment "Links an order to its delivery" ;
+    rdfs:domain :Order ;
+    rdfs:range :Delivery .
+
+:hasInvoice a owl:ObjectProperty ;
+    rdfs:label "has invoice" ;
+    rdfs:comment "Links an order to its invoice" ;
+    rdfs:domain :Order ;
+    rdfs:range :Invoice .
+
+:hasJournalEntry a owl:ObjectProperty ;
+    rdfs:label "has journal entry" ;
+    rdfs:comment "Links an invoice to its journal entry" ;
+    rdfs:domain :Invoice ;
+    rdfs:range :JournalEntry .
+
+:invoiceDate a owl:DatatypeProperty ;
+    rdfs:label "invoice date" ;
+    rdfs:domain :Invoice ;
+    rdfs:range xsd:date .
+
+:orderDate a owl:DatatypeProperty ;
+    rdfs:label "order date" ;
+    rdfs:domain :Order ;
+    rdfs:range xsd:date .
+
+:orderId a owl:DatatypeProperty ;
+    rdfs:label "order ID" ;
+    rdfs:domain :Order ;
+    rdfs:range xsd:string .
+
+:orderedBy a owl:ObjectProperty ;
+    rdfs:label "ordered by" ;
+    rdfs:comment "Links an order to the customer who placed it" ;
+    rdfs:domain :Order ;
+    rdfs:range :Customer .
+
+:quantity a owl:DatatypeProperty ;
+    rdfs:label "quantity" ;
+    rdfs:domain :Order ;
+    rdfs:range xsd:integer .
+
+:toAccount a owl:ObjectProperty ;
+    rdfs:label "to account" ;
+    rdfs:comment "Links a journal entry to the account affected" ;
+    rdfs:domain :JournalEntry ;
+    rdfs:range :Account .
+
+:transactionDate a owl:DatatypeProperty ;
+    rdfs:label "transaction date" ;
+    rdfs:domain :JournalEntry ;
+    rdfs:range xsd:date .
+
+:unitPrice a owl:DatatypeProperty ;
+    rdfs:label "unit price" ;
+    rdfs:domain :Order ;
+    rdfs:range xsd:decimal .
+
+data:AccountsReceivableAccount a :Account ;
+    :accountCode "1200" ;
+    :accountName "Accounts Receivable" .
+
+data:RevenueAccount a :Account ;
+    :accountCode "4000" ;
+    :accountName "Revenue" .
+
+data:order_ORD001 a :Order ;
+    :amount 1000.0 ;
+    :forProduct data:product_PROD001 ;
+    :hasDelivery data:delivery_DEL001 ;
+    :hasInvoice data:invoice_INV001 ;
+    :orderDate "2023-12-28"^^xsd:date ;
+    :orderId "ORD001" ;
+    :orderedBy data:customer_CUST001 ;
+    :quantity 10 ;
+    :unitPrice 100.0 .
+
+data:order_ORD002 a :Order ;
+    :amount 1000.0 ;
+    :forProduct data:product_PROD002 ;
+    :hasDelivery data:delivery_DEL002 ;
+    :hasInvoice data:invoice_INV002 ;
+    :orderDate "2023-12-29"^^xsd:date ;
+    :orderId "ORD002" ;
+    :orderedBy data:customer_CUST002 ;
+    :quantity 5 ;
+    :unitPrice 200.0 .
+
+data:order_ORD003 a :Order ;
+    :amount 2250.0 ;
+    :forProduct data:product_PROD003 ;
+    :hasDelivery data:delivery_DEL003 ;
+    :hasInvoice data:invoice_INV003 ;
+    :orderDate "2023-12-30"^^xsd:date ;
+    :orderId "ORD003" ;
+    :orderedBy data:customer_CUST003 ;
+    :quantity 15 ;
+    :unitPrice 150.0 .
+
+data:order_ORD004 a :Order ;
+    :amount 2400.0 ;
+    :forProduct data:product_PROD004 ;
+    :hasDelivery data:delivery_DEL004 ;
+    :hasInvoice data:invoice_INV004 ;
+    :orderDate "2023-12-31"^^xsd:date ;
+    :orderId "ORD004" ;
+    :orderedBy data:customer_CUST004 ;
+    :quantity 8 ;
+    :unitPrice 300.0 .
+
+data:order_ORD005 a :Order ;
+    :amount 3000.0 ;
+    :forProduct data:product_PROD005 ;
+    :hasDelivery data:delivery_DEL005 ;
+    :hasInvoice data:invoice_INV005 ;
+    :orderDate "2024-01-01"^^xsd:date ;
+    :orderId "ORD005" ;
+    :orderedBy data:customer_CUST005 ;
+    :quantity 12 ;
+    :unitPrice 250.0 .
+
+data:order_ORD006 a :Order ;
+    :amount 3600.0 ;
+    :forProduct data:product_PROD006 ;
+    :hasDelivery data:delivery_DEL006 ;
+    :hasInvoice data:invoice_INV006 ;
+    :orderDate "2024-01-02"^^xsd:date ;
+    :orderId "ORD006" ;
+    :orderedBy data:customer_CUST006 ;
+    :quantity 20 ;
+    :unitPrice 180.0 .
+
+data:order_ORD007 a :Order ;
+    :amount 2400.0 ;
+    :forProduct data:product_PROD007 ;
+    :hasDelivery data:delivery_DEL007 ;
+    :hasInvoice data:invoice_INV007 ;
+    :orderDate "2024-01-03"^^xsd:date ;
+    :orderId "ORD007" ;
+    :orderedBy data:customer_CUST007 ;
+    :quantity 6 ;
+    :unitPrice 400.0 .
+
+data:customer_CUST001 a :Customer .
+
+data:customer_CUST002 a :Customer .
+
+data:customer_CUST003 a :Customer .
+
+data:customer_CUST004 a :Customer .
+
+data:customer_CUST005 a :Customer .
+
+data:customer_CUST006 a :Customer .
+
+data:customer_CUST007 a :Customer .
+
+data:delivery_DEL001 a :Delivery ;
+    :deliveryDate "2023-12-30"^^xsd:date ;
+    :deliveryStatus "delivered" ;
+    :description "123 Main St, City A" ;
+    :quantity 10 .
+
+data:delivery_DEL002 a :Delivery ;
+    :deliveryDate "2023-12-31"^^xsd:date ;
+    :deliveryStatus "delivered" ;
+    :description "456 Oak Ave, City B" ;
+    :quantity 5 .
+
+data:delivery_DEL003 a :Delivery ;
+    :deliveryDate "2024-01-02"^^xsd:date ;
+    :deliveryStatus "delivered" ;
+    :description "789 Pine Rd, City C" ;
+    :quantity 15 .
+
+data:delivery_DEL004 a :Delivery ;
+    :deliveryDate "2024-01-03"^^xsd:date ;
+    :deliveryStatus "delivered" ;
+    :description "321 Elm St, City D" ;
+    :quantity 8 .
+
+data:delivery_DEL005 a :Delivery ;
+    :deliveryDate "2024-01-04"^^xsd:date ;
+    :deliveryStatus "delivered" ;
+    :description "654 Maple Dr, City E" ;
+    :quantity 12 .
+
+data:delivery_DEL006 a :Delivery ;
+    :deliveryDate "2024-01-05"^^xsd:date ;
+    :deliveryStatus "in_transit" ;
+    :description "987 Cedar Ln, City F" ;
+    :quantity 20 .
+
+data:delivery_DEL007 a :Delivery ;
+    :deliveryDate "2024-01-06"^^xsd:date ;
+    :deliveryStatus "pending" ;
+    :description "147 Birch Ave, City G" ;
+    :quantity 0 .
+
+data:invoice_INV001 a :Invoice ;
+    :amount 1000.0 ;
+    :description "Invoice INV001 for ORD001" ;
+    :hasJournalEntry data:je_JE001,
+        data:je_JE002 ;
+    :invoiceDate "2023-12-31"^^xsd:date .
+
+data:invoice_INV002 a :Invoice ;
+    :amount 1000.0 ;
+    :description "Invoice INV002 for ORD002" ;
+    :hasJournalEntry data:je_JE003,
+        data:je_JE004 ;
+    :invoiceDate "2024-01-01"^^xsd:date .
+
+data:invoice_INV003 a :Invoice ;
+    :amount 2250.0 ;
+    :description "Invoice INV003 for ORD003" ;
+    :hasJournalEntry data:je_JE005,
+        data:je_JE006 ;
+    :invoiceDate "2024-01-02"^^xsd:date .
+
+data:invoice_INV004 a :Invoice ;
+    :amount 2400.0 ;
+    :description "Invoice INV004 for ORD004" ;
+    :hasJournalEntry data:je_JE007,
+        data:je_JE008 ;
+    :invoiceDate "2024-01-01"^^xsd:date .
+
+data:invoice_INV005 a :Invoice ;
+    :amount 3000.0 ;
+    :description "Invoice INV005 for ORD005" ;
+    :invoiceDate "2024-01-05"^^xsd:date .
+
+data:invoice_INV006 a :Invoice ;
+    :amount 3600.0 ;
+    :description "Invoice INV006 for ORD006" ;
+    :invoiceDate "2024-01-06"^^xsd:date .
+
+data:invoice_INV007 a :Invoice ;
+    :amount 2400.0 ;
+    :description "Invoice INV007 for ORD007" ;
+    :invoiceDate "2024-01-07"^^xsd:date .
+
+data:je_JE001 a :JournalEntry ;
+    :creditAmount 1000.0 ;
+    :debitAmount 0.0 ;
+    :description "Revenue recognition for ORD001" ;
+    :transactionDate "2023-12-31"^^xsd:date .
+
+data:je_JE002 a :JournalEntry ;
+    :creditAmount 0.0 ;
+    :debitAmount 1000.0 ;
+    :description "Invoice for ORD001" ;
+    :transactionDate "2023-12-31"^^xsd:date .
+
+data:je_JE003 a :JournalEntry ;
+    :creditAmount 1000.0 ;
+    :debitAmount 0.0 ;
+    :description "Revenue recognition for ORD002" ;
+    :transactionDate "2024-01-01"^^xsd:date .
+
+data:je_JE004 a :JournalEntry ;
+    :creditAmount 0.0 ;
+    :debitAmount 1000.0 ;
+    :description "Invoice for ORD002" ;
+    :transactionDate "2024-01-01"^^xsd:date .
+
+data:je_JE005 a :JournalEntry ;
+    :creditAmount 2250.0 ;
+    :debitAmount 0.0 ;
+    :description "Revenue recognition for ORD003" ;
+    :transactionDate "2024-01-02"^^xsd:date .
+
+data:je_JE006 a :JournalEntry ;
+    :creditAmount 0.0 ;
+    :debitAmount 2250.0 ;
+    :description "Invoice for ORD003" ;
+    :transactionDate "2024-01-02"^^xsd:date .
+
+data:je_JE007 a :JournalEntry ;
+    :creditAmount 2400.0 ;
+    :debitAmount 0.0 ;
+    :description "Revenue recognition for ORD004 - CUTOFF VIOLATION" ;
+    :transactionDate "2023-12-31"^^xsd:date .
+
+data:je_JE008 a :JournalEntry ;
+    :creditAmount 0.0 ;
+    :debitAmount 2400.0 ;
+    :description "Invoice for ORD004 - CUTOFF VIOLATION" ;
+    :transactionDate "2023-12-31"^^xsd:date .
+
+data:product_PROD001 a :Product .
+
+data:product_PROD002 a :Product .
+
+data:product_PROD003 a :Product .
+
+data:product_PROD004 a :Product .
+
+data:product_PROD005 a :Product .
+
+data:product_PROD006 a :Product .
+
+data:product_PROD007 a :Product .
+
+:Account a owl:Class ;
+    rdfs:label "Account" ;
+    rdfs:comment "An accounting account for recording transactions" .
+
+:Customer a owl:Class ;
+    rdfs:label "Customer" ;
+    rdfs:comment "An entity that purchases goods or services" .
+
+:Product a owl:Class ;
+    rdfs:label "Product" ;
+    rdfs:comment "A good or service offered for sale" .
+
+:Delivery a owl:Class ;
+    rdfs:label "Delivery" ;
+    rdfs:comment "The physical delivery of goods to a customer" .
+
+:Invoice a owl:Class ;
+    rdfs:label "Invoice" ;
+    rdfs:comment "A bill sent to a customer for goods or services" .
+
+:JournalEntry a owl:Class ;
+    rdfs:label "Journal Entry" ;
+    rdfs:comment "An accounting entry recording financial transactions" .
+
+:Order a owl:Class ;
+    rdfs:label "Order" ;
+    rdfs:comment "A customer order for products or services" .
+

@@ -1,0 +1,63 @@
+@prefix : <http://example.org/audit-cutoff#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Revenue Cutoff Validation Shapes
+
+:RevenueRequiredPropertiesShape a sh:NodeShape ;
+    rdfs:label "Revenue Required Properties Shape" ;
+    rdfs:comment "Ensures revenue journal entries have required properties" ;
+    sh:targetClass :JournalEntry ;
+    sh:property [
+        sh:path :transactionDate ;
+        sh:minCount 1 ;
+        sh:datatype xsd:date ;
+        sh:message "Journal entries must have a transaction date"
+    ] ;
+    sh:property [
+        sh:path :creditAmount ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Journal entries must have a credit amount"
+    ] ;
+    sh:property [
+        sh:path :description ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Journal entries must have a description"
+    ] .
+
+:OrderRequiredPropertiesShape a sh:NodeShape ;
+    rdfs:label "Order Required Properties Shape" ;
+    rdfs:comment "Ensures orders have required properties" ;
+    sh:targetClass :Order ;
+    sh:property [
+        sh:path :orderId ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Orders must have an order ID"
+    ] ;
+    sh:property [
+        sh:path :orderDate ;
+        sh:minCount 1 ;
+        sh:datatype xsd:date ;
+        sh:message "Orders must have an order date"
+    ] .
+
+:DeliveryRequiredPropertiesShape a sh:NodeShape ;
+    rdfs:label "Delivery Required Properties Shape" ;
+    rdfs:comment "Ensures deliveries have required properties" ;
+    sh:targetClass :Delivery ;
+    sh:property [
+        sh:path :deliveryDate ;
+        sh:minCount 1 ;
+        sh:datatype xsd:date ;
+        sh:message "Deliveries must have a delivery date"
+    ] ;
+    sh:property [
+        sh:path :deliveryStatus ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Deliveries must have a delivery status"
+    ] .

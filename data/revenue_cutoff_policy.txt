@@ -1,0 +1,37 @@
+# Revenue Recognition Cutoff Policy
+
+## Objective
+To ensure that revenue is recognized in the correct accounting period in accordance with accounting standards and company policy.
+
+## Policy Statement
+Revenue must be recognized when performance obligations are satisfied, specifically when control of goods is transferred to the customer. For our business model, this occurs upon delivery of goods to the customer.
+
+## Key Requirements
+
+### 1. Revenue Recognition Timing
+- Revenue SHALL be recognized only after goods are delivered to the customer
+- Revenue SHALL NOT be recognized based on invoice date alone
+- Revenue SHALL NOT be recognized based on order date
+
+### 2. Cutoff Procedures
+- For period-end cutoff, only deliveries completed by the period end date should have revenue recognized in that period
+- Goods shipped but not yet delivered should NOT have revenue recognized
+- Revenue for deliveries completed after period end should be recognized in the subsequent period
+
+### 3. Documentation Requirements
+- Each revenue transaction must be supported by:
+  - Confirmed customer order
+  - Proof of delivery (delivery confirmation)
+  - Valid invoice
+
+### 4. Common Violations to Detect
+- Recording revenue before delivery is complete
+- Recording revenue in the wrong period based on invoice timing rather than delivery timing
+- Recording revenue for orders that are still pending delivery
+
+### 5. Controls and Monitoring
+- Monthly cutoff testing should be performed
+- Any exceptions should be investigated and corrected
+- Revenue recognition should be validated against delivery documentation
+
+This policy ensures compliance with ASC 606 (Revenue from Contracts with Customers) and maintains the integrity of financial reporting.
