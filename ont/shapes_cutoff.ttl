@@ -1,0 +1,145 @@
+@prefix : <http://example.org/audit-cutoff#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Revenue Cutoff Validation Shapes
+
+:RevenueCutoffShape a sh:NodeShape ;
+    rdfs:label "Revenue Cutoff Validation Shape" ;
+    rdfs:comment "Validates that revenue is not recognized before delivery is completed" ;
+    sh:targetClass :JournalEntry ;
+    sh:property [
+        sh:path :toAccount ;
+        sh:hasValue :RevenueAccount ;
+        sh:message "This shape applies only to revenue journal entries"
+    ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Revenue cutoff violation: Revenue recognized before delivery completion. Revenue transaction date {$this} is earlier than delivery date {?deliveryDate}" ;
+        sh:prefixes : ;
+        sh:select """
+            SELECT $this ?deliveryDate WHERE {
+                $this a :JournalEntry ;
+                      :transactionDate ?transactionDate ;
+                      :creditAmount ?creditAmount ;
+                      :toAccount :RevenueAccount .
+                
+                # Find the related order through invoice reference
+                $this :description ?desc .
+                FILTER(CONTAINS(?desc, "ORD"))
+                
+                # Extract order ID from description
+                BIND(REPLACE(?desc, ".*?(ORD\\d+).*", "$1") AS ?orderId)
+                
+                # Find the delivery for this order
+                ?order :orderId ?orderId ;
+                       :hasDelivery ?delivery .
+                ?delivery :deliveryDate ?deliveryDate ;
+                         :deliveryStatus "delivered" .
+                
+                # Check if revenue was recognized before delivery
+                FILTER(?transactionDate < ?deliveryDate)
+                FILTER(?creditAmount > 0)
+            }
+        """
+    ] .
+
+:DeliveryRequiredForRevenueShape a sh:NodeShape ;
+    rdfs:label "Delivery Required for Revenue Shape" ;
+    rdfs:comment "Validates that revenue entries have corresponding completed deliveries" ;
+    sh:targetClass :JournalEntry ;
+    sh:property [
+        sh:path :toAccount ;
+        sh:hasValue :RevenueAccount ;
+        sh:message "This shape applies only to revenue journal entries"
+    ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Revenue recognition violation: No completed delivery found for revenue entry {$this}" ;
+        sh:prefixes : ;
+        sh:select """
+            SELECT $this WHERE {
+                $this a :JournalEntry ;
+                      :creditAmount ?creditAmount ;
+                      :toAccount :RevenueAccount ;
+                      :description ?desc .
+                
+                FILTER(?creditAmount > 0)
+                FILTER(CONTAINS(?desc, "ORD"))
+                
+                # Extract order ID from description
+                BIND(REPLACE(?desc, ".*?(ORD\\d+).*", "$1") AS ?orderId)
+                
+                # Check that there's no delivered delivery for this order
+                FILTER NOT EXISTS {
+                    ?order :orderId ?orderId ;
+                           :hasDelivery ?delivery .
+                    ?delivery :deliveryStatus "delivered" .
+                }
+            }
+        """
+    ] .
+
+:PeriodEndCutoffShape a sh:NodeShape ;
+    rdfs:label "Period End Cutoff Shape" ;
+    rdfs:comment "Validates revenue cutoff for period end (2023-12-31)" ;
+    sh:targetClass :JournalEntry ;
+    sh:property [
+        sh:path :toAccount ;
+        sh:hasValue :RevenueAccount ;
+        sh:message "This shape applies only to revenue journal entries"
+    ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Period-end cutoff violation: Revenue recognized in 2023 for delivery completed in 2024. Transaction: {$this}, Delivery date: {?deliveryDate}" ;
+        sh:prefixes : ;
+        sh:select """
+            SELECT $this ?deliveryDate WHERE {
+                $this a :JournalEntry ;
+                      :transactionDate ?transactionDate ;
+                      :creditAmount ?creditAmount ;
+                      :toAccount :RevenueAccount ;
+                      :description ?desc .
+                
+                FILTER(?creditAmount > 0)
+                FILTER(YEAR(?transactionDate) = 2023)
+                FILTER(CONTAINS(?desc, "ORD"))
+                
+                # Extract order ID from description
+                BIND(REPLACE(?desc, ".*?(ORD\\d+).*", "$1") AS ?orderId)
+                
+                # Find the delivery for this order
+                ?order :orderId ?orderId ;
+                       :hasDelivery ?delivery .
+                ?delivery :deliveryDate ?deliveryDate ;
+                         :deliveryStatus "delivered" .
+                
+                # Check if delivery was completed in next year
+                FILTER(YEAR(?deliveryDate) = 2024)
+            }
+        """
+    ] .
+
+:InvoiceOrderConsistencyShape a sh:NodeShape ;
+    rdfs:label "Invoice Order Consistency Shape" ;
+    rdfs:comment "Validates that invoices reference valid orders" ;
+    sh:targetClass :Invoice ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Invoice {$this} references non-existent order" ;
+        sh:prefixes : ;
+        sh:select """
+            SELECT $this WHERE {
+                $this a :Invoice .
+                ?order :hasInvoice $this .
+                ?order :orderId ?orderId .
+                
+                # Check that the order actually exists in our data
+                FILTER NOT EXISTS {
+                    ?existingOrder a :Order ;
+                                  :orderId ?orderId .
+                }
+            }
+        """
+    ] .

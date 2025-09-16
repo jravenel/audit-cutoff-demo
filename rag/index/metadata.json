@@ -1,0 +1,146 @@
+[
+  {
+    "content": "## # Revenue Recognition Cutoff Policy",
+    "type": "policy",
+    "section_id": 0,
+    "source": "revenue_cutoff_policy.txt"
+  },
+  {
+    "content": "## Objective\nTo ensure that revenue is recognized in the correct accounting period in accordance with accounting standards and company policy.",
+    "type": "policy",
+    "section_id": 1,
+    "source": "revenue_cutoff_policy.txt"
+  },
+  {
+    "content": "## Policy Statement\nRevenue must be recognized when performance obligations are satisfied, specifically when control of goods is transferred to the customer. For our business model, this occurs upon delivery of goods to the customer.",
+    "type": "policy",
+    "section_id": 2,
+    "source": "revenue_cutoff_policy.txt"
+  },
+  {
+    "content": "## Key Requirements\n\n### 1. Revenue Recognition Timing\n- Revenue SHALL be recognized only after goods are delivered to the customer\n- Revenue SHALL NOT be recognized based on invoice date alone\n- Revenue SHALL NOT be recognized based on order date\n\n### 2. Cutoff Procedures\n- For period-end cutoff, only deliveries completed by the period end date should have revenue recognized in that period\n- Goods shipped but not yet delivered should NOT have revenue recognized\n- Revenue for deliveries completed after period end should be recognized in the subsequent period\n\n### 3. Documentation Requirements\n- Each revenue transaction must be supported by:\n  - Confirmed customer order\n  - Proof of delivery (delivery confirmation)\n  - Valid invoice\n\n### 4. Common Violations to Detect\n- Recording revenue before delivery is complete\n- Recording revenue in the wrong period based on invoice timing rather than delivery timing\n- Recording revenue for orders that are still pending delivery\n\n### 5. Controls and Monitoring\n- Monthly cutoff testing should be performed\n- Any exceptions should be investigated and corrected\n- Revenue recognition should be validated against delivery documentation\n\nThis policy ensures compliance with ASC 606 (Revenue from Contracts with Customers) and maintains the integrity of financial reporting.",
+    "type": "policy",
+    "section_id": 3,
+    "source": "revenue_cutoff_policy.txt"
+  },
+  {
+    "content": "Journal Entry JE001: Revenue recognition for ORD001 Date: 2023-12-31, Account: Revenue (4000), Debit: $0.00, Credit: $1000.00",
+    "type": "transaction",
+    "transaction_id": "JE001",
+    "date": "2023-12-31",
+    "account": "Revenue",
+    "source": "journal_entries.csv"
+  },
+  {
+    "content": "Journal Entry JE002: Invoice for ORD001 Date: 2023-12-31, Account: Accounts Receivable (1200), Debit: $1000.00, Credit: $0.00",
+    "type": "transaction",
+    "transaction_id": "JE002",
+    "date": "2023-12-31",
+    "account": "Accounts Receivable",
+    "source": "journal_entries.csv"
+  },
+  {
+    "content": "Journal Entry JE003: Revenue recognition for ORD002 Date: 2024-01-01, Account: Revenue (4000), Debit: $0.00, Credit: $1000.00",
+    "type": "transaction",
+    "transaction_id": "JE003",
+    "date": "2024-01-01",
+    "account": "Revenue",
+    "source": "journal_entries.csv"
+  },
+  {
+    "content": "Journal Entry JE004: Invoice for ORD002 Date: 2024-01-01, Account: Accounts Receivable (1200), Debit: $1000.00, Credit: $0.00",
+    "type": "transaction",
+    "transaction_id": "JE004",
+    "date": "2024-01-01",
+    "account": "Accounts Receivable",
+    "source": "journal_entries.csv"
+  },
+  {
+    "content": "Journal Entry JE005: Revenue recognition for ORD003 Date: 2024-01-02, Account: Revenue (4000), Debit: $0.00, Credit: $2250.00",
+    "type": "transaction",
+    "transaction_id": "JE005",
+    "date": "2024-01-02",
+    "account": "Revenue",
+    "source": "journal_entries.csv"
+  },
+  {
+    "content": "Journal Entry JE006: Invoice for ORD003 Date: 2024-01-02, Account: Accounts Receivable (1200), Debit: $2250.00, Credit: $0.00",
+    "type": "transaction",
+    "transaction_id": "JE006",
+    "date": "2024-01-02",
+    "account": "Accounts Receivable",
+    "source": "journal_entries.csv"
+  },
+  {
+    "content": "Journal Entry JE007: Revenue recognition for ORD004 - CUTOFF VIOLATION Date: 2023-12-31, Account: Revenue (4000), Debit: $0.00, Credit: $2400.00",
+    "type": "transaction",
+    "transaction_id": "JE007",
+    "date": "2023-12-31",
+    "account": "Revenue",
+    "source": "journal_entries.csv"
+  },
+  {
+    "content": "Journal Entry JE008: Invoice for ORD004 - CUTOFF VIOLATION Date: 2023-12-31, Account: Accounts Receivable (1200), Debit: $2400.00, Credit: $0.00",
+    "type": "transaction",
+    "transaction_id": "JE008",
+    "date": "2023-12-31",
+    "account": "Accounts Receivable",
+    "source": "journal_entries.csv"
+  },
+  {
+    "content": "Order ORD001: Customer CUST001 ordered 10 units on 2023-12-28. Total amount: $1000.00. Delivered on 2023-12-30 (Status: delivered). ",
+    "type": "order",
+    "order_id": "ORD001",
+    "order_date": "2023-12-28",
+    "delivery_date": "2023-12-30",
+    "source": "orders_deliveries.csv"
+  },
+  {
+    "content": "Order ORD002: Customer CUST002 ordered 5 units on 2023-12-29. Total amount: $1000.00. Delivered on 2023-12-31 (Status: delivered). ",
+    "type": "order",
+    "order_id": "ORD002",
+    "order_date": "2023-12-29",
+    "delivery_date": "2023-12-31",
+    "source": "orders_deliveries.csv"
+  },
+  {
+    "content": "Order ORD003: Customer CUST003 ordered 15 units on 2023-12-30. Total amount: $2250.00. Delivered on 2024-01-02 (Status: delivered). CUTOFF CONSIDERATION: Order placed in 2023, delivered in 2024. ",
+    "type": "order",
+    "order_id": "ORD003",
+    "order_date": "2023-12-30",
+    "delivery_date": "2024-01-02",
+    "source": "orders_deliveries.csv"
+  },
+  {
+    "content": "Order ORD004: Customer CUST004 ordered 8 units on 2023-12-31. Total amount: $2400.00. Delivered on 2024-01-03 (Status: delivered). CUTOFF CONSIDERATION: Order placed in 2023, delivered in 2024. CUTOFF VIOLATION DETECTED: Revenue recognized before delivery completion. ",
+    "type": "order",
+    "order_id": "ORD004",
+    "order_date": "2023-12-31",
+    "delivery_date": "2024-01-03",
+    "source": "orders_deliveries.csv"
+  },
+  {
+    "content": "Order ORD005: Customer CUST005 ordered 12 units on 2024-01-01. Total amount: $3000.00. Delivered on 2024-01-04 (Status: delivered). ",
+    "type": "order",
+    "order_id": "ORD005",
+    "order_date": "2024-01-01",
+    "delivery_date": "2024-01-04",
+    "source": "orders_deliveries.csv"
+  },
+  {
+    "content": "Order ORD006: Customer CUST006 ordered 20 units on 2024-01-02. Total amount: $3600.00. Delivered on 2024-01-05 (Status: in_transit). ",
+    "type": "order",
+    "order_id": "ORD006",
+    "order_date": "2024-01-02",
+    "delivery_date": "2024-01-05",
+    "source": "orders_deliveries.csv"
+  },
+  {
+    "content": "Order ORD007: Customer CUST007 ordered 6 units on 2024-01-03. Total amount: $2400.00. Delivered on 2024-01-06 (Status: pending). ",
+    "type": "order",
+    "order_id": "ORD007",
+    "order_date": "2024-01-03",
+    "delivery_date": "2024-01-06",
+    "source": "orders_deliveries.csv"
+  }
+]

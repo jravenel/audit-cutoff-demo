@@ -1,0 +1,144 @@
+@prefix : <http://example.org/audit-cutoff#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+: a owl:Ontology ;
+    rdfs:label "Revenue Cutoff Audit Ontology" ;
+    rdfs:comment "Ontology for modeling revenue cutoff audit concepts and relationships" .
+
+# Classes
+:Order a owl:Class ;
+    rdfs:label "Order" ;
+    rdfs:comment "A customer order for products or services" .
+
+:Delivery a owl:Class ;
+    rdfs:label "Delivery" ;
+    rdfs:comment "The physical delivery of goods to a customer" .
+
+:Invoice a owl:Class ;
+    rdfs:label "Invoice" ;
+    rdfs:comment "A bill sent to a customer for goods or services" .
+
+:JournalEntry a owl:Class ;
+    rdfs:label "Journal Entry" ;
+    rdfs:comment "An accounting entry recording financial transactions" .
+
+:Customer a owl:Class ;
+    rdfs:label "Customer" ;
+    rdfs:comment "An entity that purchases goods or services" .
+
+:Product a owl:Class ;
+    rdfs:label "Product" ;
+    rdfs:comment "A good or service offered for sale" .
+
+:Account a owl:Class ;
+    rdfs:label "Account" ;
+    rdfs:comment "An accounting account for recording transactions" .
+
+# Object Properties
+:hasDelivery a owl:ObjectProperty ;
+    rdfs:label "has delivery" ;
+    rdfs:domain :Order ;
+    rdfs:range :Delivery ;
+    rdfs:comment "Links an order to its delivery" .
+
+:hasInvoice a owl:ObjectProperty ;
+    rdfs:label "has invoice" ;
+    rdfs:domain :Order ;
+    rdfs:range :Invoice ;
+    rdfs:comment "Links an order to its invoice" .
+
+:hasJournalEntry a owl:ObjectProperty ;
+    rdfs:label "has journal entry" ;
+    rdfs:domain :Invoice ;
+    rdfs:range :JournalEntry ;
+    rdfs:comment "Links an invoice to its journal entry" .
+
+:orderedBy a owl:ObjectProperty ;
+    rdfs:label "ordered by" ;
+    rdfs:domain :Order ;
+    rdfs:range :Customer ;
+    rdfs:comment "Links an order to the customer who placed it" .
+
+:forProduct a owl:ObjectProperty ;
+    rdfs:label "for product" ;
+    rdfs:domain :Order ;
+    rdfs:range :Product ;
+    rdfs:comment "Links an order to the product ordered" .
+
+:toAccount a owl:ObjectProperty ;
+    rdfs:label "to account" ;
+    rdfs:domain :JournalEntry ;
+    rdfs:range :Account ;
+    rdfs:comment "Links a journal entry to the account affected" .
+
+# Data Properties
+:orderId a owl:DatatypeProperty ;
+    rdfs:label "order ID" ;
+    rdfs:domain :Order ;
+    rdfs:range xsd:string .
+
+:orderDate a owl:DatatypeProperty ;
+    rdfs:label "order date" ;
+    rdfs:domain :Order ;
+    rdfs:range xsd:date .
+
+:deliveryDate a owl:DatatypeProperty ;
+    rdfs:label "delivery date" ;
+    rdfs:domain :Delivery ;
+    rdfs:range xsd:date .
+
+:deliveryStatus a owl:DatatypeProperty ;
+    rdfs:label "delivery status" ;
+    rdfs:domain :Delivery ;
+    rdfs:range xsd:string .
+
+:invoiceDate a owl:DatatypeProperty ;
+    rdfs:label "invoice date" ;
+    rdfs:domain :Invoice ;
+    rdfs:range xsd:date .
+
+:transactionDate a owl:DatatypeProperty ;
+    rdfs:label "transaction date" ;
+    rdfs:domain :JournalEntry ;
+    rdfs:range xsd:date .
+
+:amount a owl:DatatypeProperty ;
+    rdfs:label "amount" ;
+    rdfs:range xsd:decimal .
+
+:debitAmount a owl:DatatypeProperty ;
+    rdfs:label "debit amount" ;
+    rdfs:domain :JournalEntry ;
+    rdfs:range xsd:decimal .
+
+:creditAmount a owl:DatatypeProperty ;
+    rdfs:label "credit amount" ;
+    rdfs:domain :JournalEntry ;
+    rdfs:range xsd:decimal .
+
+:quantity a owl:DatatypeProperty ;
+    rdfs:label "quantity" ;
+    rdfs:domain :Order ;
+    rdfs:range xsd:integer .
+
+:unitPrice a owl:DatatypeProperty ;
+    rdfs:label "unit price" ;
+    rdfs:domain :Order ;
+    rdfs:range xsd:decimal .
+
+:description a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    rdfs:range xsd:string .
+
+:accountCode a owl:DatatypeProperty ;
+    rdfs:label "account code" ;
+    rdfs:domain :Account ;
+    rdfs:range xsd:string .
+
+:accountName a owl:DatatypeProperty ;
+    rdfs:label "account name" ;
+    rdfs:domain :Account ;
+    rdfs:range xsd:string .
